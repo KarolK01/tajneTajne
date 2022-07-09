@@ -1,8 +1,6 @@
-package com.example.application.views;
+package com.example.demo.views;
 
-
-import com.example.application.views.about.AboutView;
-import com.example.application.views.personform.PersonFormView;
+import com.example.demo.views.personform.PersonFormView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -19,14 +17,8 @@ import com.vaadin.flow.component.html.UnorderedList;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 
-/**
- * The main view is a top-level placeholder for other views.
- */
 public class MainLayout extends AppLayout {
 
-    /**
-     * A simple navigation item component, based on ListItem element.
-     */
     public static class MenuItemInfo extends ListItem {
 
         private final Class<? extends Component> view;
@@ -47,11 +39,6 @@ public class MainLayout extends AppLayout {
         public Class<?> getView() {
             return view;
         }
-
-        /**
-         * Simple wrapper to create icons using LineAwesome iconset. See
-         * https://icons8.com/line-awesome
-         */
         @NpmPackage(value = "line-awesome", version = "1.3.0")
         public static class LineAwesomeIcon extends Span {
             public LineAwesomeIcon(String lineawesomeClassnames) {
@@ -61,11 +48,9 @@ public class MainLayout extends AppLayout {
                 }
             }
         }
-
     }
 
     private H1 viewTitle;
-
     public MainLayout() {
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
@@ -87,38 +72,30 @@ public class MainLayout extends AppLayout {
     }
 
     private Component createDrawerContent() {
-        H2 appName = new H2("My App");
+        H2 appName = new H2("Wybierz opcję z menu");
         appName.addClassNames("app-name");
-
         com.vaadin.flow.component.html.Section section = new com.vaadin.flow.component.html.Section(appName,
                 createNavigation(), createFooter());
         section.addClassNames("drawer-section");
         return section;
     }
-
     private Nav createNavigation() {
         Nav nav = new Nav();
         nav.addClassNames("menu-item-container");
         nav.getElement().setAttribute("aria-labelledby", "views");
-
-        // Wrap the links in a list; improves accessibility
         UnorderedList list = new UnorderedList();
         list.addClassNames("navigation-list");
         nav.add(list);
 
         for (MenuItemInfo menuItem : createMenuItems()) {
             list.add(menuItem);
-
         }
         return nav;
     }
 
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{ //
-                new MenuItemInfo("About", "la la-file", AboutView.class), //
-
-                new MenuItemInfo("Person Form", "la la-user", PersonFormView.class), //
-
+                new MenuItemInfo("Wypełnij formularz", "la la-user", PersonFormView.class), //
         };
     }
 
